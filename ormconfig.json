@@ -4,7 +4,7 @@
   "port": 5432,
   "username": "postgres",
   "password": "password",
-  "database": "nestjs_store",
+  "database": "nest_todo_list",
   "entities": ["dist/**/*.entity{.ts,.js}"],
   "synchronize": true,
   "useUnifiedTopology": true

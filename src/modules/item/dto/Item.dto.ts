@@ -1,17 +1,13 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { AddressDTO } from 'src/modules/address/dto/Address.dto';
+import { CategoryDTO } from 'src/modules/category/dto/Category.dto';
 
-export class StoreDTO {
+export class ItemDTO {
   @ApiProperty()
   @IsNotEmpty()
-  name: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  document: string;
+  text: string;
 
   @ApiPropertyOptional()
   @IsOptional()
-  address: AddressDTO;
+  category: CategoryDTO;
 }

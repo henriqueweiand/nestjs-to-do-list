@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Address } from '../address/address.entity';
+import { Item } from '../item/item.entity';
 
 @Entity()
 @Unique(['document'])
@@ -30,4 +31,13 @@ export class Store extends BaseEntity {
     },
   )
   address: Address[];
+
+  @OneToMany(
+    () => Item,
+    item => item.id,
+    {
+      nullable: true,
+    },
+  )
+  item: Item[];
 }

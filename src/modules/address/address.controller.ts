@@ -3,7 +3,7 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
 import { AddressService } from './address.service';
 import { Address } from './address.entity';
-import { CreateAddressDTO } from './dto/createAddress.dto';
+import { AddressDTO } from './dto/Address.dto';
 
 @Controller('address')
 @ApiTags('address')
@@ -31,7 +31,7 @@ export class AddressController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
-  create(@Body() createAddressDTO: CreateAddressDTO): Promise<Address> {
-    return this.addressService.create(createAddressDTO);
+  create(@Body() addressDTO: AddressDTO): Promise<Address> {
+    return this.addressService.create(addressDTO);
   }
 }

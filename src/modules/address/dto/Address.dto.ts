@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class CreateAddressDTO {
+export class AddressDTO {
   @ApiProperty()
   @IsNotEmpty()
   address: string;
