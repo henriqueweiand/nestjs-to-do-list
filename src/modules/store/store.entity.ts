@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Address } from '../address/address.entity';
 import { Item } from '../item/item.entity';
+import { Category } from '../category/category.entity';
 
 @Entity()
 @Unique(['document'])
@@ -40,4 +41,15 @@ export class Store extends BaseEntity {
     },
   )
   item: Item[];
+
+  @OneToMany(
+    () => Category,
+    category => category.id,
+    {
+      nullable: true,
+      cascade: ['insert', 'update', 'remove'],
+      eager: true,
+    },
+  )
+  category: Category[];
 }

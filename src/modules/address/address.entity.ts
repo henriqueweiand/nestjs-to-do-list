@@ -30,11 +30,13 @@ export class Address extends BaseEntity {
   @Column()
   city: string;
 
+  @Column({ name: 'storeId', type: 'uuid' })
   @ManyToOne(
     () => Store,
     store => store.id,
     {
       onDelete: 'CASCADE',
+      nullable: false,
     },
   )
   store: string;

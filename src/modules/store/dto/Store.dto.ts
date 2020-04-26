@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { AddressDTO } from 'src/modules/address/dto/Address.dto';
+import { StoreAddressDTO } from './StoreAddress.dto';
+import { StoreCategoryDTO } from './StoreCategory.dto';
 
 export class StoreDTO {
   @ApiProperty()
@@ -11,7 +12,15 @@ export class StoreDTO {
   @IsNotEmpty()
   document: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ description: 'Optional to create address' })
   @IsOptional()
-  address: AddressDTO;
+  address: StoreAddressDTO;
+
+  @ApiPropertyOptional({
+    isArray: true,
+    type: StoreCategoryDTO,
+    description: 'Optional to create category',
+  })
+  @IsOptional()
+  category: StoreCategoryDTO[];
 }

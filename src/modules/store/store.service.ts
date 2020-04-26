@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { StoreDTO } from './dto/Store.dto';
 import { Address } from '../address/address.entity';
+import { Category } from '../category/category.entity';
 
 @Injectable()
 export class StoreService {
@@ -26,11 +27,13 @@ export class StoreService {
   }
 
   async create(storeDTO: StoreDTO): Promise<Store> {
-    const { name, document, address } = storeDTO;
+    const { name, document, address, category } = storeDTO;
+    console.log(category);
     const entity = this.storeRepository.create({
       name,
       document,
       address: address ? [address] : [],
+      category: category ? category : [],
     });
 
     return await this.storeRepository.save(entity);
@@ -44,7 +47,7 @@ export class StoreService {
     }
 
     try {
-      const { name, document, address } = storeDTO;
+      const { name, document, address, category } = storeDTO;
 
       const storeUpdate = this.storeRepository.merge(store, {
         name,
@@ -53,6 +56,10 @@ export class StoreService {
 
       if (address) {
         storeUpdate.address = [address as Address];
+      }
+
+      if (category) {
+        storeUpdate.category = category as Category[];
       }
 
       return await this.storeRepository.save(storeUpdate);

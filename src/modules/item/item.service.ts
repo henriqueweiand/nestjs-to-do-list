@@ -30,7 +30,7 @@ export class ItemService {
     const { text, category } = itemDTO;
     const entity = this.itemRepository.create({
       text,
-      category,
+      // category,
     });
 
     return await this.itemRepository.save(entity);
@@ -51,7 +51,7 @@ export class ItemService {
       });
 
       if (category) {
-        itemUpdate.category = category as Category;
+        // itemUpdate.category = category as Category;
       }
 
       return await this.itemRepository.save(itemUpdate);

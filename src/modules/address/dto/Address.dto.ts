@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsNumber, IsUUID } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class AddressDTO {
@@ -26,4 +26,9 @@ export class AddressDTO {
   @ApiProperty()
   @IsNotEmpty()
   city: string;
+
+  @ApiProperty({ description: 'UUID of Store' })
+  @IsNotEmpty()
+  @IsUUID()
+  store: string;
 }
