@@ -21,6 +21,18 @@ export class CategoryService {
     return await this.categoryRepository.find();
   }
 
+  async findOrCreate(categoryDTO: CategoryDTO): Promise<Category> {
+    let entity = await this.categoryRepository.findOne({
+      where: categoryDTO,
+    });
+
+    if (!entity) {
+      entity = await this.create(categoryDTO);
+    }
+
+    return entity;
+  }
+
   async create(categoryDTO: CategoryDTO): Promise<Category> {
     const entity = this.categoryRepository.create(categoryDTO);
 

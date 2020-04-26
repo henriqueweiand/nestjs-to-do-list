@@ -35,7 +35,7 @@ export class Store extends BaseEntity {
 
   @OneToMany(
     () => Item,
-    item => item.id,
+    item => item.store,
     {
       nullable: true,
     },

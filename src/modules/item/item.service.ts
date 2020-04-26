@@ -4,71 +4,91 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { Item } from './item.entity';
+import { Category } from '../category/category.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ItemDTO } from './dto/Item.dto';
-import { Address } from '../address/address.entity';
-import { Category } from '../category/category.entity';
+import { CategoryService } from '../category/category.service';
 
 @Injectable()
 export class ItemService {
   constructor(
     @InjectRepository(Item)
     private readonly itemRepository: Repository<Item>,
+    private readonly categoryService: CategoryService,
   ) {}
 
   async index(): Promise<Item[]> {
     return await this.itemRepository.find();
   }
 
-  async show(id: string): Promise<Item> {
-    return await this.itemRepository.findOne({ where: { id } });
-  }
-
   async create(itemDTO: ItemDTO): Promise<Item> {
-    const { text, category } = itemDTO;
-    const entity = this.itemRepository.create({
-      text,
-      // category,
-    });
+    const { store, category, text } = itemDTO;
+    let categoryExist: Category | null = null;
 
-    return await this.itemRepository.save(entity);
+    try {
+      if (category) {
+        categoryExist = await this.categoryService.findOrCreate({
+          store,
+          name: category!.name,
+        });
+      }
+
+      const entity = this.itemRepository.create({
+        text,
+        store,
+      });
+
+      if (category && categoryExist) {
+        entity.category = categoryExist;
+      }
+
+      return await this.itemRepository.save(entity);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
   }
 
   async update(id: string, itemDTO: ItemDTO): Promise<Item> {
-    const item = await this.itemRepository.findOne({ where: { id } });
+    const { store, category, ...itemData } = itemDTO;
+    let categoryExist: Category | null = null;
+    const entity = await this.itemRepository.findOne({ where: { id } });
 
-    if (!item) {
+    if (!entity) {
       throw new NotFoundException();
     }
 
     try {
-      const { text, category } = itemDTO;
-
-      const itemUpdate = this.itemRepository.merge(item, {
-        text,
-      });
-
       if (category) {
-        // itemUpdate.category = category as Category;
+        categoryExist = await this.categoryService.findOrCreate({
+          store,
+          name: category!.name,
+        });
       }
 
-      return await this.itemRepository.save(itemUpdate);
+      const entityUpdate = this.itemRepository.merge(entity, {
+        ...itemData,
+      });
+
+      return await this.itemRepository.save({
+        ...entityUpdate,
+        category: categoryExist,
+      });
     } catch (err) {
       throw new BadRequestException(err);
     }
   }
 
   async delete(id: string): Promise<void> {
-    const item = await this.itemRepository.findOne({ where: { id } });
+    const entity = await this.itemRepository.findOne({ where: { id } });
 
-    if (!item) {
+    if (!entity) {
       throw new NotFoundException();
     }
 
     try {
-      await this.itemRepository.delete(item);
+      await this.itemRepository.delete(entity);
     } catch (err) {
       throw new BadRequestException(err);
     }

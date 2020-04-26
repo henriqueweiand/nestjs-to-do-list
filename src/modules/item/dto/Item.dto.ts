@@ -1,13 +1,20 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { CategoryDTO } from 'src/modules/category/dto/Category.dto';
+import { ItemCategoryDTO } from './ItemCategory.dto';
 
 export class ItemDTO {
   @ApiProperty()
   @IsNotEmpty()
   text: string;
 
-  @ApiPropertyOptional()
+  @ApiProperty({ description: 'UUID of Store' })
+  @IsNotEmpty()
+  @IsUUID()
+  store: string;
+
+  @ApiPropertyOptional({
+    description: 'Optional to create/assign category',
+  })
   @IsOptional()
-  category: CategoryDTO;
+  category: ItemCategoryDTO;
 }
