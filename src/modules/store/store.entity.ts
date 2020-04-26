@@ -44,7 +44,7 @@ export class Store extends BaseEntity {
 
   @OneToMany(
     () => Category,
-    category => category.id,
+    category => category.store,
     {
       nullable: true,
       cascade: ['insert', 'update', 'remove'],

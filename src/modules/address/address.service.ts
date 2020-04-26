@@ -7,14 +7,13 @@ import { Address } from './address.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AddressDTO } from './dto/Address.dto';
-import { StoreService } from '../store/store.service';
+import { UpdateAddressDTO } from './dto/UpdateAddress.dto';
 
 @Injectable()
 export class AddressService {
   constructor(
     @InjectRepository(Address)
     private readonly addressRepository: Repository<Address>,
-    private storeService: StoreService,
   ) {}
 
   async index(): Promise<Address[]> {
@@ -32,12 +31,6 @@ export class AddressService {
       store,
     } = createAddressDTO;
 
-    const storeExists = await this.storeService.show(store);
-
-    if (!storeExists) {
-      throw new NotFoundException('Store not found');
-    }
-
     const entity = this.addressRepository.create({
       address,
       neighborhood,
@@ -51,38 +44,31 @@ export class AddressService {
     return await this.addressRepository.save(entity);
   }
 
-  async update(id: string, addressDTO: AddressDTO): Promise<Address> {
-    const address = await this.addressRepository.findOne({ where: { id } });
-    const { store } = addressDTO;
+  async update(id: string, addressDTO: UpdateAddressDTO): Promise<Address> {
+    const entity = await this.addressRepository.findOne({ where: { id } });
 
-    if (!address) {
+    if (!entity) {
       throw new NotFoundException();
     }
 
-    const storeExists = await this.storeService.show(store);
-
-    if (!storeExists) {
-      throw new NotFoundException('Store not found');
-    }
-
     try {
-      const addressUpdate = this.addressRepository.merge(address, addressDTO);
+      const entityUpdate = this.addressRepository.merge(entity, addressDTO);
 
-      return await this.addressRepository.save(addressUpdate);
+      return await this.addressRepository.save(entityUpdate);
     } catch (err) {
       throw new BadRequestException(err);
     }
   }
 
   async delete(id: string): Promise<void> {
-    const address = await this.addressRepository.findOne({ where: { id } });
+    const entity = await this.addressRepository.findOne({ where: { id } });
 
-    if (!address) {
+    if (!entity) {
       throw new NotFoundException();
     }
 
     try {
-      await this.addressRepository.delete(address);
+      await this.addressRepository.delete(entity);
     } catch (err) {
       throw new BadRequestException(err);
     }

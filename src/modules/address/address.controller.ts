@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  HttpStatus,
   Post,
   Body,
   Put,
@@ -9,11 +8,12 @@ import {
   Param,
 } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiBasicAuth } from '@nestjs/swagger';
+import httpResponse from 'src/common/httpResponse';
 
 import { AddressService } from './address.service';
 import { Address } from './address.entity';
 import { AddressDTO } from './dto/Address.dto';
-import httpResponse from 'src/common/httpResponse';
+import { UpdateAddressDTO } from './dto/UpdateAddress.dto';
 
 @Controller('address')
 @ApiTags('address')
@@ -42,8 +42,8 @@ export class AddressController {
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)
   @ApiBasicAuth()
-  async update(@Param('id') id: string, @Body() storeDTO: AddressDTO) {
-    return await this.addressService.update(id, storeDTO);
+  async update(@Param('id') id: string, @Body() addressDTO: UpdateAddressDTO) {
+    return await this.addressService.update(id, addressDTO);
   }
 
   @Delete(':id')

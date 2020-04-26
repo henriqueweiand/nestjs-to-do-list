@@ -28,7 +28,7 @@ export class StoreService {
 
   async create(storeDTO: StoreDTO): Promise<Store> {
     const { name, document, address, category } = storeDTO;
-    console.log(category);
+
     const entity = this.storeRepository.create({
       name,
       document,
