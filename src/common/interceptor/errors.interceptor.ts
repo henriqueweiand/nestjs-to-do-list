@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import httpResponse from 'src/common/httpResponse';
+import httpResponse from '../../common/httpResponse';
 
 @Injectable()
 export class ErrorsInterceptor implements NestInterceptor {

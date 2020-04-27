@@ -13,8 +13,8 @@ import { ApiTags, ApiResponse, ApiBasicAuth } from '@nestjs/swagger';
 import { StoreService } from './store.service';
 import { Store } from './store.entity';
 import { StoreDTO } from './dto/Store.dto';
-import { ErrorsInterceptor } from 'src/common/interceptor/errors.interceptor';
-import httpResponse from 'src/common/httpResponse';
+import { ErrorsInterceptor } from '../../common/interceptor/errors.interceptor';
+import httpResponse from '../../common/httpResponse';
 
 @Controller('store')
 @ApiTags('store')

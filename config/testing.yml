@@ -1,0 +1,9 @@
+db:
+  host: 'localhost'
+  username: 'postgres'
+  password: 'password'
+  synchronize: true
+  database: 'nest_todo_list_testing'
+
+jwt:
+  secret: 'BBBB-CCCC-DDDD-EEEE-FFFF'

@@ -8,7 +8,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiBasicAuth } from '@nestjs/swagger';
-import httpResponse from 'src/common/httpResponse';
+import httpResponse from '../../common/httpResponse';
 
 import { CategoryService } from './category.service';
 import { Category } from './category.entity';
