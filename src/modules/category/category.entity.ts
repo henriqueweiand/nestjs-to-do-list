@@ -23,6 +23,7 @@ export class Category extends BaseEntity {
     store => store.category,
     {
       nullable: false,
+      onDelete: 'CASCADE',
     },
   )
   store: string;

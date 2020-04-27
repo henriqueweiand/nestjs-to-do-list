@@ -1,10 +1,6 @@
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Store } from './store.entity';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { StoreDTO } from './dto/Store.dto';
@@ -46,39 +42,31 @@ export class StoreService {
       throw new NotFoundException();
     }
 
-    try {
-      const { name, document, address, category } = storeDTO;
+    const { name, document, address, category } = storeDTO;
 
-      const storeUpdate = this.storeRepository.merge(store, {
-        name,
-        document,
-      });
+    const storeUpdate = this.storeRepository.merge(store, {
+      name,
+      document,
+    });
 
-      if (address) {
-        storeUpdate.address = [address as Address];
-      }
-
-      if (category) {
-        storeUpdate.category = category as Category[];
-      }
-
-      return await this.storeRepository.save(storeUpdate);
-    } catch (err) {
-      throw new BadRequestException(err);
+    if (address) {
+      storeUpdate.address = [address as Address];
     }
+
+    if (category) {
+      storeUpdate.category = category as Category[];
+    }
+
+    return await this.storeRepository.save(storeUpdate);
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string): Promise<DeleteResult> {
     const store = await this.storeRepository.findOne({ where: { id } });
 
     if (!store) {
       throw new NotFoundException();
     }
 
-    try {
-      await this.storeRepository.delete(store);
-    } catch (err) {
-      throw new BadRequestException(err);
-    }
+    return await this.storeRepository.delete(store);
   }
 }
