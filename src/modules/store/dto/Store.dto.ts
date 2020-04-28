@@ -10,7 +10,7 @@ export class StoreDTO {
 
   @ApiProperty()
   @IsNotEmpty()
-  document: string;
+  document: number;
 
   @ApiPropertyOptional({ description: 'Optional to create address' })
   @IsOptional()

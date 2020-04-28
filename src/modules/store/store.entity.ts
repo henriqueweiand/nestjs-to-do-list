@@ -20,7 +20,7 @@ export class Store extends BaseEntity {
   name: string;
 
   @Column()
-  document: string;
+  document: number;
 
   @OneToMany(
     () => Address,
