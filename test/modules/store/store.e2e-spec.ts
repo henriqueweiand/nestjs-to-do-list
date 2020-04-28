@@ -2,13 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import * as request from 'supertest';
-import { factory } from 'typeorm-factories';
 
-import { StoreModule } from '../store.module';
-import { typeOrmConfig } from '../../../config/typeorm.config';
-import { Store } from '../store.entity';
+import { StoreModule } from '../../../src/modules/store/store.module';
+import { typeOrmConfig } from '../../../src/config/typeorm.config';
+import { Store } from '../../../src/modules/store/store.entity';
 import { Repository } from 'typeorm';
-import { StoreFactory } from '../store.factory';
+import { StoreFactory } from '../../../src/modules/store/store.factory';
 
 let app: INestApplication;
 let repository: Repository<Store>;

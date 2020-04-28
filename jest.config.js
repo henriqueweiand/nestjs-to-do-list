@@ -21,6 +21,7 @@ module.exports = {
     '!**/enum/**',
     '!**/index.ts',
     '!**/server.ts',
+    '!**/*.config.ts',
     '!**/*.factory.ts',
     '!**/*.module.ts',
     '!**/*.entity.ts',
