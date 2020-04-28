@@ -23,14 +23,20 @@ export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Get()
-  @ApiResponse(httpResponse.OK)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: [ItemDTO],
+  })
   @ApiBasicAuth()
   index(): Promise<Item[]> {
     return this.itemService.index();
   }
 
   @Post()
-  @ApiResponse(httpResponse.CREATED)
+  @ApiResponse({
+    ...httpResponse.CREATED,
+    type: ItemDTO,
+  })
   @ApiResponse(httpResponse.CONFLICT)
   @ApiResponse(httpResponse.BAD_REQUEST)
   @ApiBasicAuth()
@@ -39,7 +45,10 @@ export class ItemController {
   }
 
   @Put(':id')
-  @ApiResponse(httpResponse.CREATED)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: ItemDTO,
+  })
   @ApiResponse(httpResponse.CONFLICT)
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)

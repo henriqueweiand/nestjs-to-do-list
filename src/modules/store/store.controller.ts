@@ -23,7 +23,10 @@ export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Get()
-  @ApiResponse(httpResponse.OK)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: [StoreDTO],
+  })
   @ApiBasicAuth()
   index(): Promise<Store[]> {
     return this.storeService.index();
@@ -39,7 +42,10 @@ export class StoreController {
   }
 
   @Put(':id')
-  @ApiResponse(httpResponse.CREATED)
+  @ApiResponse({
+    ...httpResponse.CREATED,
+    type: StoreDTO,
+  })
   @ApiResponse(httpResponse.CONFLICT)
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)
@@ -49,7 +55,10 @@ export class StoreController {
   }
 
   @Delete(':id')
-  @ApiResponse(httpResponse.OK)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: StoreDTO,
+  })
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)
   @ApiBasicAuth()

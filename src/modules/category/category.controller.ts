@@ -21,7 +21,10 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Get()
-  @ApiResponse(httpResponse.OK)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: [CategoryDTO],
+  })
   @ApiResponse(httpResponse.BAD_REQUEST)
   index(): Promise<Category[]> {
     return this.categoryService.index();
@@ -37,7 +40,10 @@ export class CategoryController {
   }
 
   @Put(':id')
-  @ApiResponse(httpResponse.CREATED)
+  @ApiResponse({
+    ...httpResponse.CREATED,
+    type: CategoryDTO,
+  })
   @ApiResponse(httpResponse.CONFLICT)
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)
@@ -50,7 +56,10 @@ export class CategoryController {
   }
 
   @Delete(':id')
-  @ApiResponse(httpResponse.OK)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: CategoryDTO,
+  })
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)
   @ApiBasicAuth()

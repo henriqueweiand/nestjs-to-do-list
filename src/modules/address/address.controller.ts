@@ -21,14 +21,20 @@ export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
   @Get()
-  @ApiResponse(httpResponse.OK)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: [AddressDTO],
+  })
   @ApiResponse(httpResponse.BAD_REQUEST)
   index(): Promise<Address[]> {
     return this.addressService.index();
   }
 
   @Post()
-  @ApiResponse(httpResponse.CREATED)
+  @ApiResponse({
+    ...httpResponse.CREATED,
+    type: AddressDTO,
+  })
   @ApiResponse(httpResponse.CONFLICT)
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)
@@ -37,7 +43,10 @@ export class AddressController {
   }
 
   @Put(':id')
-  @ApiResponse(httpResponse.CREATED)
+  @ApiResponse({
+    ...httpResponse.OK,
+    type: AddressDTO,
+  })
   @ApiResponse(httpResponse.CONFLICT)
   @ApiResponse(httpResponse.NOT_FOUND)
   @ApiResponse(httpResponse.BAD_REQUEST)
