@@ -25,3 +25,8 @@ jobs:
           CI: true
           NODE_ENV: production
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+
+      - name: Moving build to artifacts directory
+        run: |
+          chmod +x ./scripts/copyFiles.sh
+          ./scripts/copyFiles.sh
