@@ -13,7 +13,7 @@
     "types": ["jest"],
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "typeRoots": ["types", "node", "@types", "jest"]
+    "typeRoots": ["./typings", "types", "node", "@types", "jest"]
   },
   "exclude": ["node_modules", "dist"]
 }
