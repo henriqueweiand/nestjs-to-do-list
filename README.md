@@ -1,5 +1,7 @@
 ![Nest+GithubAction+Zeit+Postgres](https://i.imgur.com/da8acAY.png)
 
+<p><img src="https://github.com/henriqueweiand/nestjs-to-do-list/workflows/Node%20CI/badge.svg"></p>
+
 # NestJS To Do List
 
 Testing project to apply some technologies and methodologies
