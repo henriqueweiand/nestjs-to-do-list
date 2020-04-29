@@ -25,11 +25,6 @@ jobs:
           CI: true
           NODE_ENV: production
 
-      - name: Moving build to artifacts directory
-        run: |
-          chmod +x ./scripts/copyFiles.sh
-          ./scripts/copyFiles.sh
-
       - name: Deploy to ZEIT Now
         run: |
           npm run deploy
