@@ -4,10 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
-import * as config from 'config';
+import projectConfig from './config';
 
 async function bootstrap() {
-  const serverConfig = config.get<any>('server');
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('bootstrap');
 
@@ -21,12 +20,11 @@ async function bootstrap() {
     .addBearerAuth({ type: 'apiKey' }, 'header')
     .build();
 
-  const port = process.env.PORT || serverConfig.port;
   const document = SwaggerModule.createDocument(app, options);
 
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(port);
-  logger.log(`Application listening on port ${port}`);
+  await app.listen(projectConfig.port);
+  logger.log(`Application listening on port ${projectConfig.port}`);
 }
 bootstrap();
