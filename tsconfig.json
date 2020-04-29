@@ -11,9 +11,7 @@
     "baseUrl": "./",
     "incremental": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "types": ["node", "jest"],
-    "typeRoots": ["../node_modules/@types"]
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "dist"]
 }
