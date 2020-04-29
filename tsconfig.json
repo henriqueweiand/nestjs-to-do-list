@@ -10,12 +10,10 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "types": ["jest"],
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "paths": {
-      "*": ["src/@t`ypes/*"]
-    }
+    "types": ["node"],
+    "typeRoots": ["../node_modules/@types"]
   },
   "exclude": ["node_modules", "dist"]
 }
