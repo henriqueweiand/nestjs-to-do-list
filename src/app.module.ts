@@ -6,10 +6,12 @@ import { AddressModule } from './modules/address/address.module';
 import { StoreModule } from './modules/store/store.module';
 import { ItemModule } from './modules/item/item.module';
 import { CategoryModule } from './modules/category/category.module';
+import { MainModule } from './modules/main/item.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
+    MainModule,
     StoreModule,
     AddressModule,
     CategoryModule,
