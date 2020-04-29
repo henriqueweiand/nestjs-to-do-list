@@ -12,7 +12,8 @@
     "incremental": true,
     "types": ["jest"],
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["jest", "node"]
   },
   "exclude": ["node_modules", "dist"]
 }
