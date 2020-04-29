@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "NODE_ENV=testing jest --config ./test/jest-e2e.json --runInBand",
-    "deploy": "npm run build && now --prod --token $ZEIT_TOKEN"
+    "deploy": "npm run build && now --prod --token --confirm $ZEIT_TOKEN"
   },
   "dependencies": {
     "@nestjs/cli": "^7.0.0",
@@ -36,6 +36,7 @@
     "class-validator": "^0.11.1",
     "config": "^3.3.1",
     "faker": "^4.1.0",
+    "global": "^4.4.0",
     "jest": "^25.1.0",
     "now": "^18.0.0",
     "pg": "^8.0.2",
